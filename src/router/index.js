@@ -1,25 +1,45 @@
+// src/router/index.js
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
 
+// 导入视图组件
+import Home from "../views/HomeView.vue";
+import FreightRateList from "../views/FreightRateList.vue";
+import Workspace from "../views/WorkspaceView.vue";
+import News from "../views/NewsView.vue";
+import Register from "../views/RegisterView.vue";
+
+// 定义路由
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: HomeView,
+    name: "Home",
+    component: Home,
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    path: "/freightRateList",
+    name: "FreightRateList",
+    component: FreightRateList,
+  },
+  {
+    path: "/workspace",
+    name: "Workspace",
+    component: Workspace,
+  },
+  {
+    path: "/news",
+    name: "News",
+    component: News,
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
   },
 ];
 
+// 创建路由实例
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(process.env.BASE_URL), // 使用 HTML5 History 模式
   routes,
 });
 
