@@ -211,9 +211,11 @@ const formatPriceText = (price) => {
 };
 
 onMounted(() => {
-  getHotOfferList("", "", (list) => {
-    console.log("list", list);
-    // hotOfferList.value = list;
-  });
+  // getHotOfferList("", "", (list) => {
+  //   console.log("list", list);
+  //   // hotOfferList.value = list;
+  //   discountLists.value[0] = list;
+  // });
+  handleClickTab(0);
 });
 </script>
