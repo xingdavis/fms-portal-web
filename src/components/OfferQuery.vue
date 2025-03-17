@@ -894,8 +894,12 @@ const handleTransferTypeChange = (value) => {
 watch(
   () => [props.startPort, props.destinationPort],
   ([newStartPort, newDestinationPort]) => {
-    queryOptions.value.startPort = Number(newStartPort);
-    queryOptions.value.destinationPort = Number(newDestinationPort);
+    if (newStartPort) {
+      queryOptions.value.startPort = Number(newStartPort);
+    }
+    if (newDestinationPort) {
+      queryOptions.value.destinationPort = Number(newDestinationPort);
+    }
 
     // 只有当两个端口都有值时才查询
     // if (newStartPort && newDestinationPort) {
