@@ -898,9 +898,10 @@ watch(
     queryOptions.value.destinationPort = Number(newDestinationPort);
 
     // 只有当两个端口都有值时才查询
-    if (newStartPort && newDestinationPort) {
-      handlePageChange(1);
-    }
+    // if (newStartPort && newDestinationPort) {
+    //   handlePageChange(1);
+    // }
+    handlePageChange(1);
   },
   { immediate: true }
 );
