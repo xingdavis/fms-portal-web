@@ -664,7 +664,7 @@ const searchPort = async (kw = "", callback) => {
     let list = portOptions;
     if (response) {
       // list = response.data.list;
-      list = response.data.list.map((item) => ({
+      list = response.list.map((item) => ({
         ...item,
         displayText: formatPortText(item),
       }));
@@ -703,7 +703,7 @@ const getPortList = (kw = "") => {
   PortAPI.fetchList(params)
     .then((response) => {
       // this.portOptions = response.data.list;
-      portOptions = response.data.list.map((item) => ({
+      portOptions = response.list.map((item) => ({
         ...item,
         displayText: formatPortText(item),
       }));
@@ -823,10 +823,10 @@ const getOfferList = () => {
   const params = queryOptions.value;
   OfferAPI.fetchList(params)
     .then((response) => {
-      console.log("response", response);
-      if (response && response.code === 200) {
+      console.log("getOfferList response", response);
+      if (response) {
         // callback(freightOfferList, response.data.list);
-        freightOfferList.value = response.data.list;
+        freightOfferList.value = response.list;
         // 处理本地费用数据
         freightOfferList.value.forEach((item) => {
           let localFeeData = [];
@@ -844,7 +844,7 @@ const getOfferList = () => {
           });
           freightOfferList.value.localFeeData = localFeeData;
         });
-        totalRecord.value = response.data.total;
+        totalRecord.value = response.total;
       }
     })
     .catch((error) => {
@@ -862,8 +862,8 @@ const searchCarrier = (kw, callback) => {
   CarrierAPI.fetchList(params)
     .then((response) => {
       console.log("response", response);
-      if (response && response.data) {
-        callback(response.data.list);
+      if (response) {
+        callback(response.list);
       }
     })
     .catch((error) => {

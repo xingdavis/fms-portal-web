@@ -373,7 +373,7 @@ const searchPort = async (kw = "", callback) => {
     let list = portOptions;
     if (response) {
       // list = response.data.list;
-      list = response.data.list.map((item) => ({
+      list = response.list.map((item) => ({
         ...item,
         displayText: formatPortText(item),
       }));
@@ -412,7 +412,8 @@ const getPortList = (kw = "") => {
   PortAPI.fetchList(params)
     .then((response) => {
       // this.portOptions = response.data.list;
-      portOptions = response.data.list.map((item) => ({
+      // console.log("getPortList response", response);
+      portOptions = response.list.map((item) => ({
         ...item,
         displayText: formatPortText(item),
       }));

@@ -6,12 +6,12 @@ import request from "@/utils/request";
 class MemberAPI {
   /**
    * 搜索会员
-   * @param {*} params 
-   * @returns 
+   * @param {*} params
+   * @returns
    */
   fetchList(params) {
     return request({
-      url: "/qmsMember/list",
+      url: "/sso/list",
       method: "post",
       data: params,
     });
@@ -19,12 +19,12 @@ class MemberAPI {
 
   /**
    * 注册会员账号
-   * @param {*} params 
-   * @returns 
+   * @param {*} params
+   * @returns
    */
   create(params) {
     return request({
-      url: "/qmsMember/register",
+      url: "/sso/register",
       method: "post",
       data: params,
     });
@@ -32,12 +32,12 @@ class MemberAPI {
 
   /**
    * 更新会员信息
-   * @param {*} params 
-   * @returns 
+   * @param {*} params
+   * @returns
    */
   update(params) {
     return request({
-      url: `/qmsMember/${params.id}`,
+      url: `/sso/member/${params.id}`,
       method: "put",
       data: params,
     });
@@ -45,16 +45,15 @@ class MemberAPI {
 
   /**
    * 删除会员信息
-   * @param {*} id 
-   * @returns 
+   * @param {*} id
+   * @returns
    */
   removeMember(id) {
     return request({
-      url: `/qmsMember/${id}`,
+      url: `/sso/member/${id}`,
       method: "delete",
     });
   }
 }
 
 export default new MemberAPI();
-

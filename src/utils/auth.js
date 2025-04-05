@@ -1,15 +1,33 @@
-import Cookies from "js-cookie";
+// 访问 token 缓存的 key
+const ACCESS_TOKEN_KEY = "access_token";
+// 刷新 token 缓存的 key
+const REFRESH_TOKEN_KEY = "refresh_token";
 
-const TokenKey = "loginToken";
-
-export function getToken() {
-  return Cookies.get(TokenKey);
+function getAccessToken() {
+  return localStorage.getItem(ACCESS_TOKEN_KEY) || "";
 }
 
-export function setToken(token) {
-  return Cookies.set(TokenKey, token);
+function setAccessToken(token) {
+  localStorage.setItem(ACCESS_TOKEN_KEY, token);
 }
 
-export function removeToken() {
-  return Cookies.remove(TokenKey);
+function getRefreshToken() {
+  return localStorage.getItem(REFRESH_TOKEN_KEY) || "";
 }
+
+function setRefreshToken(token) {
+  localStorage.setItem(REFRESH_TOKEN_KEY, token);
+}
+
+function clearToken() {
+  localStorage.removeItem(ACCESS_TOKEN_KEY);
+  localStorage.removeItem(REFRESH_TOKEN_KEY);
+}
+
+export {
+  getAccessToken,
+  setAccessToken,
+  clearToken,
+  getRefreshToken,
+  setRefreshToken,
+};

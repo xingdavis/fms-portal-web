@@ -9,5 +9,10 @@ module.exports = defineConfig({
         pathRewrite: { "^/api": "" }, // 重写路径
       },
     },
+    client: {
+      overlay: {
+        runtimeErrors: false, // 禁用运行时错误覆盖层
+      },
+    },
   },
 });

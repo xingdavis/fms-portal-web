@@ -16,6 +16,19 @@ class OfferAPI {
       data: params,
     });
   }
+
+  /**
+   * 首页特惠报价信息
+   * @param {*} params
+   * @returns
+   */
+  specialList(params) {
+    return request({
+      url: "/qms/offer/special",
+      method: "post",
+      data: params,
+    });
+  }
 }
 
 export default new OfferAPI();

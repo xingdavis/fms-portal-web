@@ -163,11 +163,11 @@ const getHotOfferList = async (route = "", country = "", callback) => {
     routesCode: route,
     countryCode: country,
   };
-  OfferAPI.fetchList(params)
+  OfferAPI.specialList(params)
     .then((response) => {
       console.log("response", response);
-      if (response && response.data) {
-        callback(response.data.list);
+      if (response) {
+        callback(response.list);
       }
     })
     .catch((error) => {

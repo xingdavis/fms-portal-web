@@ -1691,7 +1691,7 @@
     height: 100%;
     opacity: .5;
     background: #000;
-	z-index: 2002;
+	/* z-index: 9999; */
 }
 .login-box .el-icon-close{
 	font-style:normal;
