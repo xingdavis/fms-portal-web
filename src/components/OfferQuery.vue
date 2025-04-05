@@ -230,7 +230,38 @@
                             {{ item.startPortObj?.city }}
                           </div>
                         </div>
-                        <div class="arrow-img"></div>
+                        <el-popover
+                          class="box-item"
+                          placement="top"
+                          width="220"
+                          :disabled="
+                            !item.transferPortList ||
+                            item.transferPortList.length === 0
+                          "
+                        >
+                          <template #reference>
+                            <div class="arrow-img">
+                              <img
+                                src="@/assets/images/transfer.png"
+                                alt="箭头图标"
+                                class="arrow"
+                              />
+                            </div>
+                          </template>
+                          <template #default>
+                            <div class="transfer-content">
+                              <div class="title">中转港口</div>
+                              <div class="transfer-list">
+                                <p
+                                  v-for="(port, index) in item.transferPortList"
+                                  :key="index"
+                                >
+                                  {{ port.portName }}({{ port.cityEnName }})
+                                </p>
+                              </div>
+                            </div>
+                          </template>
+                        </el-popover>
                         <div class="item">
                           <div class="e-name">
                             {{ item.destinationPortObj?.cityEnName }}
@@ -468,7 +499,7 @@
 
                           <!-- 特别说明操作项 -->
                           <div class="operate-item flex_ac">
-                            <el-popover trigger="click">
+                            <el-popover trigger="click" width="700">
                               <template #reference>
                                 <div class="operate-item-2">
                                   <img
@@ -685,6 +716,13 @@ const searchPort = async (kw = "", callback) => {
   // }
   // callback(list);
 };
+
+// const formatTransferPortText = (transferPortList) => {
+//   if (!transferPortList || transferPortList.length === 0) return "";
+//   return transferPortList
+//     .map((item) => `${item.portName}(${item.cityEnName})`)
+//     .join(", ");
+// };
 const formatPortText = (port) => {
   if (port) {
     return `${port.portName}(${port.cityEnName},${port.country})`;

@@ -145,7 +145,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, defineEmits, computed } from "vue";
+import { ref, defineProps, defineEmits } from "vue";
 import { ElMessage } from "element-plus";
 import { useUserStore } from "@/store";
 const props = defineProps({
@@ -168,36 +168,34 @@ const loginFormData = ref({
 
 const loginFormRef = ref();
 
-const loginRules = computed(() => {
-  return {
-    username: [
-      {
-        required: true,
-        trigger: "blur",
-        message: "请输入用户名",
-      },
-    ],
-    password: [
-      {
-        required: true,
-        trigger: "blur",
-        message: "请输入登录密码",
-      },
-      {
-        min: 6,
-        message: "密码长度不能小于6位",
-        trigger: "blur",
-      },
-    ],
-    // captchaCode: [
-    //   {
-    //     required: true,
-    //     trigger: "blur",
-    //     message: t("login.message.captchaCode.required"),
-    //   },
-    // ],
-  };
-});
+const loginRules = {
+  username: [
+    {
+      required: true,
+      trigger: "blur",
+      message: "请输入用户名",
+    },
+  ],
+  password: [
+    {
+      required: true,
+      trigger: "blur",
+      message: "请输入登录密码",
+    },
+    {
+      min: 6,
+      message: "密码长度不能小于6位",
+      trigger: "blur",
+    },
+  ],
+  // captchaCode: [
+  //   {
+  //     required: true,
+  //     trigger: "blur",
+  //     message: t("login.message.captchaCode.required"),
+  //   },
+  // ],
+};
 
 // const account = ref("");
 // const password = ref("");
@@ -206,48 +204,48 @@ const accountError = ref("");
 const passwordError = ref("");
 const loading = ref(false); // 按钮 loading 状态
 
-const handleLogin = async () => {
-  // accountError.value = "";
-  // passwordError.value = "";
-
-  // if (!account.value) accountError.value = "账号不能为空";
-  // else if (account.value !== correctAccount) accountError.value = "账号不正确";
-
-  // if (!password.value) passwordError.value = "密码不能为空";
-  // else if (password.value !== correctPassword)
-  //   passwordError.value = "密码不正确";
-
-  // if (!accountError.value && !passwordError.value) {
-  //   alert("登录成功！");
-  //   if (rememberMe.value) console.log("7天免登录已勾选");
-  //   closeModal();
-  // }
+const handleLogin = async (formEl) => {
+  if (!formEl) return;
 
   try {
+    await loginFormRef.value.validate((valid, fields) => {
+      if (valid) {
+        loading.value = true;
+        // 2. 执行登录
+        userStore.login(loginFormData.value);
+        // 5. 关闭登录框
+        closeModal();
+        loading.value = false;
+      } else {
+        // console.log("error submit!", fields);
+        for (const field in fields) {
+          const fieldError = fields[field][0];
+          // if (field === "username") {
+          //   accountError.value = fieldError.message;
+          // } else if (field === "password") {
+          //   passwordError.value = fieldError.message;
+          // }
+          ElMessage.error(fieldError.message || "登录失败，请稍后重试");
+        }
+      }
+    });
+
     // 1. 表单验证
-    const valid = await loginFormRef.value?.validate();
-    if (!valid) return;
+    // const valid = await loginFormRef.value.validate();
+    // if (!valid) return;
 
-    loading.value = true;
+    // loading.value = true;
 
-    // 2. 执行登录
-    userStore.login(loginFormData.value);
-
-    // 3. 获取用户信息
-    // await userStore.getUserInfo();
-
-    // 4. 解析并跳转目标地址
-    // const redirect = resolveRedirectTarget(route.query);
-    // await router.push(redirect);
-    // 5. 关闭登录框
-    closeModal();
+    // // 2. 执行登录
+    // userStore.login(loginFormData.value);
+    // // 5. 关闭登录框
+    // closeModal();
 
     // TODO 5. 判断用户是否点击了记住我？采用明文保存或使用jsencrypt库？
   } catch (error) {
     // 5. 统一错误处理
     // getCaptcha(); // 刷新验证码
-    // console.error("登录失败:", error);
-    ElMessage.error(error.message || "登录失败，请稍后重试");
+    console.error("登录失败:", error);
     // return;
   } finally {
     loading.value = false;

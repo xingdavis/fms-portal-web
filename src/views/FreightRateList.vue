@@ -1,7 +1,10 @@
 <!-- src/views/FreightRateList.vue -->
 <template>
   <div>
-    <login-modal :visible="showLogin" @close="showLogin = false" />
+    <login-modal
+      :visible="showLogin && !userStore.isLoggedIn"
+      @close="showLogin = false"
+    />
     <navigation @show-login="showLoginModal" />
     <OfferQuery :startPort="startPort" :destinationPort="destinationPort" />
     <Footer />
@@ -9,7 +12,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { useRoute } from "vue-router";
 import Navigation from "@/components/NavigationComponent.vue";
 import OfferQuery from "@/components/OfferQuery.vue";
@@ -27,9 +30,9 @@ const showLoginModal = () => {
 // 从路由参数中获取起运港和目的港
 const startPort = ref(route.query.startPort || null);
 const destinationPort = ref(route.query.destinationPort || null);
-onMounted(() => {
-  console.log("startPort:", startPort.value);
-  console.log("destinationPort:", destinationPort.value);
-  showLogin.value = !userStore.isLoggedIn;
-});
+// onMounted(() => {
+//   console.log("startPort:", startPort.value);
+//   // console.log("destinationPort:", destinationPort.value);
+//   // showLogin.value = !userStore.isLoggedIn;
+// });
 </script>
